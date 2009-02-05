@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+    <head>
+        <title>Server List</title>
+        <style>
+            body { font: large sans-serif; background-color: #EEE; margin: 0; padding: 0; }
+            h1 { margin: 0px; padding: 10px; text-align: center; border-bottom: 1px solid #DDD; background-color: #FFC; }
+            table { width: 100%; border-collapse: collapse; }
+            table thead { background-color: #5B80B2; color: white; border-bottom: 1px solid #DDD; }
+            table td,table th { padding: 4px 0px 4px 0px; }
+            table tbody tr { border-bottom: 1px solid #DDD; }
+            table tbody tr.even { background-color: #F6F6F6; }
+            table th { font-size: 18px; }
+            table td { text-align: center; }
+            a { text-decoration: none; color: #7CA0C7; }
+        </style>
+    </head>
+    <body>
+        <h1>Memcached Server Stats</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Server</th>
+                    <th>Keys</th>
+                    <th>Hits</th>
+                    <th>Gets</th>
+                    <th>Hit Rate</th>
+                    <th>Traffic In</th>
+                    <th>Traffic Out</th>
+                    <th>Usage</th>
+                    <th>Uptime</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i,server,stats in statuses %}
+                    <tr class="{% cycle even,odd %}">
+                        <td><a href="{% url django_memcached.views.server_status i %}">{{ server }}</a></td>
+                        <td>{{ stats.curr_items }}</td>
+                        <td>{{ stats.get_hits }}</td>
+                        <td>{{ stats.cmd_get }}</td>
+                        <td>{{ stats.hit_rate }}%</td>
+                        <td>{{ stats.bytes_read|filesizeformat }}</td>
+                        <td>{{ stats.bytes_written|filesizeformat }}</td>
+                        <td>{{ stats.bytes|filesizeformat }}</td>
+                        <td>{{ stats.uptime }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </body>
+</html>

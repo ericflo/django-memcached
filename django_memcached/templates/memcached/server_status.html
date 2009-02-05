@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+    <head>
+        <title>Memcached Stats for {{ server }}</title>
+        <style>
+            body { font: large sans-serif; background-color: #EEE; margin: 0; padding: 0; }
+            h1 { margin: 0px; padding: 10px; text-align: center; border-bottom: 1px solid #DDD; background-color: #FFC; }
+            #tablecontainer { text-align: center; }
+            table { width: 50%; margin-left: auto; margin-right: auto; border-collapse: collapse; border-left: 1px solid #DDD; border-right: 1px solid #DDD; }
+            table thead { background-color: #7CA0C7; color: white; border-bottom: 1px solid #DDD; }
+            table td,table th { padding: 4px 0px 4px 0px; }
+            table tbody tr { border-bottom: 1px solid #DDD; }
+            table tbody tr.even { background-color: #F6F6F6; }
+            table th { font-size: 18px; }
+            table td { text-align: center; }
+            a { text-decoration: none; color: #5B80B2; }
+            a#back { display: block; background-color: #5B80B2; color: white; width: 100%; padding: 10px; border-bottom: 1px solid #DDD; }
+        </style>
+    </head>
+    <body>
+        <h1>Memcached Stats for {{ server }}</h1>
+        <a id="back" href="{% url django_memcached.views.server_list %}">&larr; Back to List</a>
+        <div id="tablecontainer">
+            <table>
+                <tbody>
+                    {% for key,value in stats %}
+                        <tr class="{% cycle even,odd %}">
+                            <th>{{ key|title }}</th>
+                            <td>{{ value }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
