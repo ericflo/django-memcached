@@ -46,7 +46,7 @@ memcached servers are being utilized.
 setup(
     name='django-memcached',
     version=version,
-    description="django-memcached",
+    description="django-memcached is a very simple reusable app which does one simple thing: shows you statistics about your currently running memcached instances",
     long_description=LONG_DESCRIPTION,
     classifiers=[
         "Programming Language :: Python",
@@ -60,8 +60,8 @@ setup(
     url='http://github.com/ericflo/django-memcached/tree/master',
     license='BSD',
     packages=find_packages(),
-    include_package_data=True,
     zip_safe=False,
     install_requires=['setuptools'],
-    package_data = {'django_memcached': ['templates/*.html']},
+    include_package_data=True,
+    setup_requires=['setuptools_git'],
 )
