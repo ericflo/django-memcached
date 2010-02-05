@@ -2,11 +2,13 @@ from django.http import Http404
 from django.shortcuts import render_to_response
 from django.conf import settings
 from django.template import RequestContext
+from django.core.cache import parse_backend_uri
 
 from django_memcached.util import get_memcached_stats
 from django.contrib.auth.decorators import user_passes_test
 
-SERVERS = settings.CACHE_BACKEND.replace('memcached://', '').replace('/','').split(';')
+_, hosts, _ = parse_backend_uri(settings.CACHE_BACKEND)
+SERVERS = hosts.split(';')
 
 def server_list(request):
     statuses = zip(range(len(SERVERS)), SERVERS, map(get_memcached_stats, SERVERS))
